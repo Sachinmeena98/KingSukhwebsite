@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Booking Counter</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css">
+
+    <!-- CSS CODE -->
+    <style>
+    .section__container {
+    background:url(./asset/baranti.webp);
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+}
+.form-group label{
+    color: white;
+}
+.form-group input{
+    background-color: transparent;
+    color: white;
+}
+.counter__container {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+.counter__container p {
+    margin-bottom: 0;
+}
+
+.input__group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input__group i {
+    margin-right: 15px;
+    font-size: 1rem;
+    color: #007bff;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="date"],
+input[type="number"],
+select,
+.form-control {
+    border-radius: 4px;
+}
+
+.btn {
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.booking__data {
+    border-top: 2px solid #007bff;
+}
+
+th,
+td {
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+    .section__container {
+        border-radius: 0;
+    }
+
+    .booking__data {
+        border-top: none;
+    }
+}
+</style>
+
+<!-- HTML CODE -->
+</head>
+<body>
+    <section class="section__container booking__container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="text-center mb-4">Total Booking Counter</h2>
+                    <div class="counter__container text-center mb-4">
+                        <p>Total Bookings: <span id="totalBookings" class="font-weight-bold">0</span></p>
+                    </div>
+                    <form action="/" class="booking__form">
+                        <div class="form-group">
+                            <label for="check-in">CHECK-IN</label>
+                            <input type="date" id="check-in" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="check-out">CHECK-OUT</label>
+                            <input type="date" id="check-out" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="guest">GUEST</label>
+                            <input type="number" id="guest" class="form-control" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">GENDER</label>
+                            <select id="gender" class="form-control">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="children">CHILDREN</label>
+                            <input type="number" id="children" class="form-control" min="0">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-block" onclick="bookRoom()">BOOK
+                                NOW</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="booking__data py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Booking Data</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Check-In</th>
+                            <th>Check-Out</th>
+                            <th>Guest</th>
+                            <th>Gender</th>
+                            <th>Children</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- javascript code -->
+    <script>
+        let totalBookings = 0;
+
+        function bookRoom() {
+            const checkIn = document.getElementById('check-in').value;
+            const checkOut = document.getElementById('check-out').value;
+            const guest = document.getElementById('guest').value;
+            const gender = document.getElementById('gender').value;
+            const children = document.getElementById('children').value;
+
+            if (checkIn && checkOut && guest && gender && children !== "") {
+                totalBookings++;
+                document.getElementById('totalBookings').textContent = totalBookings;
+
+                // Display booking data
+                const bookingData = document.getElementById('bookingData');
+                const newRow = bookingData.insertRow();
+
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                const cell4 = newRow.insertCell(3);
+                const cell5 = newRow.insertCell(4);
+
+                cell1.textContent = checkIn;
+                cell2.textContent = checkOut;
+                cell3.textContent = guest;
+                cell4.textContent = gender;
+                cell5.textContent = children;
+
+                alert("Thank you booking with us We are very excited to Welcome YOU");
+            } else {
+                alert('Please fill in all the fields to book a room.');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
